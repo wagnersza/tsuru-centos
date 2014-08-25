@@ -1,0 +1,4 @@
+$ veewee vbox build 'CentOS-6.5-x86_64-minimal'
+
+$ ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p 7222 -l veewee 127.0.0.1
+$ vagrant package --base 'CentOS-6.5-x86_64-minimal' --output 'iso/CentOS-6.5-x86_64-minimal.box'
