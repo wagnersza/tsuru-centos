@@ -1,13 +1,13 @@
 Vagrant.configure("2") do |config|
 
-  config.vm.box      = 'CentOS-6.5-x86_64-minimal'
-  config.vm.box_url  = 'iso/CentOS-6.5-x86_64-minimal.box'
+  config.vm.box      = 'CentOS-7.0-x86_64-minimal'
+  config.vm.box_url  = 'iso/CentOS-7.0-x86_64-minimal.box'
 
   # Redis Server
   config.vm.define :tsuru_redis_master do |tsuru|
   
     tsuru.vm.hostname = 'tsuru-redis-master'
-    tsuru.vm.network :private_network, ip: '10.200.200.10'
+    tsuru.vm.network 'private_network', ip: '10.200.200.10'
 
     tsuru.vm.provider :virtualbox do |vb|
       vb.customize ["modifyvm", :id, "--memory", "1024"]
@@ -30,7 +30,7 @@ Vagrant.configure("2") do |config|
   config.vm.define :tsuru_router do |tsuru|
 
     tsuru.vm.hostname = 'tsuru-router'
-    tsuru.vm.network :private_network, ip: '10.200.200.11'
+    tsuru.vm.network 'private_network', ip: '10.200.200.11'
 
     tsuru.vm.provider :virtualbox do |vb|
       vb.customize ["modifyvm", :id, "--memory", "512"]
@@ -48,7 +48,7 @@ Vagrant.configure("2") do |config|
 
   # Docker
   config.vm.define :tsuru_docker do |tsuru|
-    tsuru.vm.hostname = 'tsuru-docker'
+    tsuru.vm.hostname = 'docker'
     tsuru.vm.network :private_network, ip: '10.200.200.12'
 
     tsuru.vm.provider :virtualbox do |vb|
@@ -57,11 +57,11 @@ Vagrant.configure("2") do |config|
       vb.customize ["modifyvm", :id, "--name", "tsuru_docker"]
     end
 
-    tsuru.vm.provision :puppet do |puppet|
-      puppet.manifests_path = "manifests"
-      puppet.module_path    = "modules"
-      puppet.manifest_file  = "tsuru_docker.pp"
-    end
+    # tsuru.vm.provision :puppet do |puppet|
+    #   puppet.manifests_path = "manifests"
+    #   puppet.module_path    = "modules"
+    #   puppet.manifest_file  = "tsuru_docker.pp"
+    # end
   end
 
   # Gandalf - Registry
