@@ -15,15 +15,15 @@ Vagrant.configure("2") do |config|
       vb.customize ["modifyvm", :id, "--name", "tsuru_redis_master"]
     end
 
-    tsuru.vm.provision :puppet do |puppet|
-      puppet.manifests_path = "manifests"
-      puppet.module_path    = "modules"
-      puppet.manifest_file  = "tsuru_redis_master.pp"
-      puppet.facter = { "fqdn"                => "tsuru-redis-master",
-                        "tsuru_redis_master"  => "10.200.200.10",
-                        "tsuru_redis_servers" => "10.200.200.10 localhost"
-                       }
-    end
+    # tsuru.vm.provision :puppet do |puppet|
+    #   puppet.manifests_path = "manifests"
+    #   puppet.module_path    = "modules"
+    #   puppet.manifest_file  = "tsuru_redis_master.pp"
+    #   puppet.facter = { "fqdn"                => "tsuru-redis-master",
+    #                     "tsuru_redis_master"  => "10.200.200.10",
+    #                     "tsuru_redis_servers" => "10.200.200.10 localhost"
+    #                    }
+    # end
   end
 
   # Hipache
@@ -38,12 +38,12 @@ Vagrant.configure("2") do |config|
       vb.customize ["modifyvm", :id, "--name", "tsuru_router"]
     end
 
-    tsuru.vm.provision :puppet do |puppet|
-      puppet.manifests_path = "manifests"
-      puppet.module_path    = "modules"
-      puppet.manifest_file  = "tsuru_router.pp"
-      puppet.facter = { "tsuru_redis_master" => "10.200.200.10" }
-    end
+    # tsuru.vm.provision :puppet do |puppet|
+    #   puppet.manifests_path = "manifests"
+    #   puppet.module_path    = "modules"
+    #   puppet.manifest_file  = "tsuru_router.pp"
+    #   puppet.facter = { "tsuru_redis_master" => "10.200.200.10" }
+    # end
   end
 
   # Docker
@@ -75,15 +75,15 @@ Vagrant.configure("2") do |config|
       vb.customize ["modifyvm", :id, "--name", "tsuru_registry"]
     end
 
-    tsuru.vm.provision :puppet do |puppet|
-      puppet.manifests_path = "manifests"
-      puppet.module_path    = "modules"
-      puppet.manifest_file  = "tsuru_registry.pp"
-      puppet.facter         = { "gandalf_host"         => "git.tsuru.globoi.com",
-                                "gandalf_ipbind_port"  => "0.0.0.0:8080",
-                                "gandalf_db_url"       => "0.0.0.0:27001",
-                              }
-    end
+    # tsuru.vm.provision :puppet do |puppet|
+    #   puppet.manifests_path = "manifests"
+    #   puppet.module_path    = "modules"
+    #   puppet.manifest_file  = "tsuru_registry.pp"
+    #   puppet.facter         = { "gandalf_host"         => "git.tsuru.globoi.com",
+    #                             "gandalf_ipbind_port"  => "0.0.0.0:8080",
+    #                             "gandalf_db_url"       => "0.0.0.0:27001",
+    #                           }
+    # end
   end
 
   # Tsuru API
@@ -97,22 +97,22 @@ Vagrant.configure("2") do |config|
       vb.customize ["modifyvm", :id, "--name", "tsuru_api"]
     end
 
-    tsuru.vm.provision :puppet do |puppet|
-      puppet.manifests_path = "manifests"
-      puppet.module_path    = "modules"
-      puppet.manifest_file  = "tsuru_api.pp" 
+    # tsuru.vm.provision :puppet do |puppet|
+    #   puppet.manifests_path = "manifests"
+    #   puppet.module_path    = "modules"
+    #   puppet.manifest_file  = "tsuru_api.pp" 
 
-      puppet.facter = {
-                        "tsuru_server_domain"    => 'test.tsuru.local',
-                        "tsuru_redis_master"     => '10.200.200.10:6379',
-                        "tsuru_registry_server"  => '10.200.200.13',
-                        "tsuru_git_url"          => "http://10.200.200.13",
-                        "tsuru_git_rw_host"      => "10.200.200.13",
-                        "tsuru_git_ro_host"      => "10.200.200.13",
-                        "tsuru_docker_servers"   => "10.200.200.12:4243",
-                        "tsuru_collector_server" => "tsuru-api"
-                      }
-    end
+    #   puppet.facter = {
+    #                     "tsuru_server_domain"    => 'test.tsuru.local',
+    #                     "tsuru_redis_master"     => '10.200.200.10:6379',
+    #                     "tsuru_registry_server"  => '10.200.200.13',
+    #                     "tsuru_git_url"          => "http://10.200.200.13",
+    #                     "tsuru_git_rw_host"      => "10.200.200.13",
+    #                     "tsuru_git_ro_host"      => "10.200.200.13",
+    #                     "tsuru_docker_servers"   => "10.200.200.12:4243",
+    #                     "tsuru_collector_server" => "tsuru-api"
+    #                   }
+    # end
   end
 
 end
