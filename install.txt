@@ -9,3 +9,9 @@ $ veewee vbox build 'CentOS-7.0-x86_64-minimal'
 
 $ ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p 7222 -l veewee 127.0.0.1
 $ vagrant package --base 'CentOS-7.0-x86_64-minimal' --output 'iso/CentOS-7.0-x86_64-minimal.box'
+
+# fix vagrant centos7 networ manager
+$ vagrant plugin install vagrant-centos7_fix
+
+# fix vagrant centos7 hostnamectl
+$ sed -i 's/homenamectl/hostnamectl/' /Applications/Vagrant/embedded/gems/gems/vagrant-1.6.4/plugins/guests/redhat/cap/change_host_name.rb
